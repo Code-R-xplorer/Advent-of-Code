@@ -15,3 +15,19 @@ for value in values:
     wrapping_paper_needed += square_feet_needed
 
 print(f'Part 1: {wrapping_paper_needed}')
+
+length_ribbon_needed = 0
+
+for value in values:
+    ls, ws, hs = value.split('x')
+    l, w, h = int(ls), int(ws), int(hs)
+    side_a = l + l
+    side_b = w + w
+    side_c = h + h
+    sides = [side_a, side_b, side_c]
+    sides.sort()
+    wrapping_ribbon = sides[0] + sides[1]
+    bow_ribbon = l * w * h
+    length_ribbon_needed += wrapping_ribbon + bow_ribbon
+
+print(f'Part 2: {length_ribbon_needed}')
