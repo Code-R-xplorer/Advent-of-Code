@@ -9,3 +9,17 @@ down = steps.count(')')
 floor = up - down
 
 print(f'Part 1: {floor}')
+
+steps = list(steps)
+
+starting_floor = 0
+
+for step in range(len(steps)):
+    if steps[step] == '(':
+        starting_floor += 1
+    if steps[step] == ')':
+        starting_floor -= 1
+
+    if starting_floor == -1:
+        print(f'Part 2: {step+1}')
+        break
