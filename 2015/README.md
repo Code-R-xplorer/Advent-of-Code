@@ -1,6 +1,6 @@
-# Advent of Code {YEAR}!
+# Advent of Code 2015!
 ## Welcome!
-This repo is where you can find my attempts for Advent of Code {YEAR}!
+This repo is where you can find my attempts for Advent of Code 2015!
 
 ## Results
 - [Day 01](src/Day_01.py): :star: :star:
