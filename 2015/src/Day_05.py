@@ -23,3 +23,11 @@ for value in values:
     else:
         naughty_strings += 1
 print(f'Part 1: {nice_strings}')
+
+nice_strings = 0
+PAIR_TWICE = re.compile(r'(..).*\1')
+SANDWICH = re.compile(r'(.).\1')
+for value in values:
+    if bool(PAIR_TWICE.search(value)) and bool(SANDWICH.search(value)):
+        nice_strings += 1
+print(f'Part 2: {nice_strings}')
