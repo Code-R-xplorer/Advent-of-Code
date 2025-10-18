@@ -1,4 +1,3 @@
-from collections import defaultdict, deque
 from enum import Enum
 from typing import Tuple, Sequence
 
@@ -38,7 +37,7 @@ class Parameters(Enum):
     RSHIFT = 2
     NOT = 1
 
-instructions = {}
+instructions_master = {}
 
 for line in values:
     arguments = line.split(' ')
@@ -47,7 +46,7 @@ for line in values:
             params = [int(arguments[0])]
         else:
             params = [arguments[0]]
-        instructions[arguments[2]] = Instruction('SET', params, arguments[2])
+        instructions_master[arguments[2]] = Instruction('SET', params, arguments[2])
     if arguments[1] == 'AND':
         params = []
         if arguments[0].isdigit():
@@ -58,7 +57,7 @@ for line in values:
             params.append(int(arguments[2]))
         else:
             params.append(arguments[2])
-        instructions[arguments[4]] = Instruction('AND', params, arguments[4])
+        instructions_master[arguments[4]] = Instruction('AND', params, arguments[4])
     if arguments[1] == 'OR':
         params = []
         if arguments[0].isdigit():
@@ -69,22 +68,21 @@ for line in values:
             params.append(int(arguments[2]))
         else:
             params.append(arguments[2])
-        instructions[arguments[4]] = Instruction('OR', params, arguments[4])
+        instructions_master[arguments[4]] = Instruction('OR', params, arguments[4])
     if arguments[1] == 'LSHIFT':
-        instructions[arguments[4]] = Instruction('LSHIFT', [arguments[0], int(arguments[2])], arguments[4])
+        instructions_master[arguments[4]] = Instruction('LSHIFT', [arguments[0], int(arguments[2])], arguments[4])
     if arguments[1] == 'RSHIFT':
-        instructions[arguments[4]] = Instruction('RSHIFT', [arguments[0], int(arguments[2])], arguments[4])
+        instructions_master[arguments[4]] = Instruction('RSHIFT', [arguments[0], int(arguments[2])], arguments[4])
     if arguments[0] == 'NOT':
         if arguments[1].isdigit():
             params = [int(arguments[1])]
         else:
             params = [arguments[1]]
-        instructions[arguments[3]] = Instruction('NOT', params, arguments[3])
+        instructions_master[arguments[3]] = Instruction('NOT', params, arguments[3])
 
-cache = {}
 MASK = 0xFFFF
 
-def find(wire):
+def find(wire, instructions, cache):
     if isinstance(wire, int):
         return wire
 
@@ -95,17 +93,17 @@ def find(wire):
     args = instructions[wire].parameters
 
     if op == "SET":
-        res = find(args[0])
+        res = find(args[0], instructions, cache)
     elif op == "NOT":
-        res = (~find(args[0])) & MASK
+        res = (~find(args[0], instructions, cache)) & MASK
     elif op == "AND":
-        res = find(args[0]) & find(args[1])
+        res = find(args[0], instructions, cache) & find(args[1], instructions, cache)
     elif op == "OR":
-        res = find(args[0]) | find(args[1])
+        res = find(args[0], instructions, cache) | find(args[1], instructions, cache)
     elif op == "LSHIFT":
-        res = (find(args[0]) << find(args[1])) & MASK
+        res = (find(args[0], instructions, cache) << find(args[1], instructions, cache)) & MASK
     elif op == "RSHIFT":
-        res = (find(args[0]) >> find(args[1])) & MASK
+        res = (find(args[0], instructions, cache) >> find(args[1], instructions, cache)) & MASK
     else:
         raise ValueError(f"unknown op {op}")
 
@@ -113,4 +111,12 @@ def find(wire):
     cache[wire] = res  # store once computed
     return res
 
-print(find('a'))
+print(f'Part 1: {find("a", instructions_master, {})}')
+
+override_b = find("a", instructions_master, {})
+override_instructions = instructions_master.copy()
+override_instructions.pop('b')
+override_instructions['b'] = Instruction('SET', [override_b], 'b')
+
+print(f'Part 2: {find('a', override_instructions, {})}')
+
