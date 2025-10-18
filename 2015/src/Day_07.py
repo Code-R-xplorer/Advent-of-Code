@@ -8,25 +8,6 @@ values = read_file(7, str, False)
 
 wire_signals = []
 
-# for line in values:
-    # arguments = line.split(' ')
-    # if arguments[1] == '->':
-    #     if arguments[0].isdigit():
-    #         wire_signals.append((arguments[2], int(arguments[0])))
-    #     else:
-    #         value_to_copy = -1
-    #         for wire_signal in wire_signals:
-    #             if arguments[0] == wire_signal[0]:
-    #                 value_to_copy = int(wire_signal[0])
-    #                 break
-    #         for index, wire_signal in enumerate(wire_signals):
-    #             if arguments[2] == wire_signal[0]:
-    #                 wire_signals[index] = value_to_copy
-    # if arguments[1] == 'AND':
-    #     for wire_signal in wire_signals:
-    #
-    #         if arguments[0] == wire_signal[0]:
-
 class Instruction:
     method: str
     parameters: Tuple  # tuple, not list
