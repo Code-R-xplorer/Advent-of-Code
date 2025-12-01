@@ -1,0 +1,17 @@
+# Advent of Code 2025!
+## Welcome!
+This repo is where you can find my attempts for Advent of Code 2025!
+
+## Results
+- [Day 01](): :black_large_square: :black_large_square:
+- [Day 02](): :black_large_square: :black_large_square:
+- [Day 03](): :black_large_square: :black_large_square:
+- [Day 04](): :black_large_square: :black_large_square:
+- [Day 05](): :black_large_square: :black_large_square:
+- [Day 06](): :black_large_square: :black_large_square:
+- [Day 07](): :black_large_square: :black_large_square:
+- [Day 08](): :black_large_square: :black_large_square:
+- [Day 09](): :black_large_square: :black_large_square:
+- [Day 10](): :black_large_square: :black_large_square:
+- [Day 11](): :black_large_square: :black_large_square:
+- [Day 12](): :black_large_square: :black_large_square:
